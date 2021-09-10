@@ -75,10 +75,10 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, direction, out hit, range))
         {
-            EnemyController target = hit.transform.GetComponent<EnemyController>();
+            IDamage target = hit.transform.GetComponent<IDamage>();
             if(target != null)
             {
-                target.TakeDamaged(damage);
+                target.TakeDamage(damage);
             }
 
             if (hit.rigidbody != null)
