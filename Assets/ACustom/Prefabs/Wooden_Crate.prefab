@@ -127,3 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 150
   destroyedVersion: {fileID: 4895372717291037417, guid: dceaf496a54888f4483d104740a8fb34, type: 3}
+  isWoodBox: 1

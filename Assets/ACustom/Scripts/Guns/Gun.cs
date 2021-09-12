@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
     public float reloadTime = 1f;
     public int bulletsPerTap = 1;
     public float timeBetweenShooting, spread;
+    public bool isShotgun, isPistol, isRifle, isSMG, isFullAuto;
 
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
@@ -52,9 +53,11 @@ public class Gun : MonoBehaviour
 
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && readyToShoot && currentAmmo > 0)
         {
+            isFullAuto = true;
             nextTimeToFire = Time.time + 1f / fireRate;
             bulletsShot = bulletsPerTap;
             Shoot();
+
         }
 
         text.SetText(currentAmmo/ bulletsPerTap + " / " + maxAmmo/ bulletsPerTap);
@@ -65,6 +68,7 @@ public class Gun : MonoBehaviour
     {
         readyToShoot = false;
         muzzleFlash.Play();
+        PlaySoundShoot();
         
         //spread
         float x = Random.Range(-spread, spread);
@@ -103,13 +107,14 @@ public class Gun : MonoBehaviour
         if (bulletsShot > 0 && currentAmmo > 0)
             Invoke("Shoot", timeBetweenShooting);
     }
-    private void ResetShot()
+    void ResetShot()
     {
         readyToShoot = true;
     }
     IEnumerator Reload()
     {
         isReloading = true;
+        PlaySoundReloading();
 
         animator.SetBool("Reloading", true);
         yield return new WaitForSeconds(reloadTime - .25f);
@@ -151,5 +156,19 @@ public class Gun : MonoBehaviour
         }
 
         isReloading = false;
+    }
+
+    void PlaySoundShoot()
+    {
+        if (isShotgun)
+            FindObjectOfType<AudioManager>().Play("Shotgun Shoot");
+    }
+    void PlaySoundReloading()
+    {
+        if (isShotgun)
+            FindObjectOfType<AudioManager>().Play("Shotgun Reload");
+
+        if (isRifle)
+            FindObjectOfType<AudioManager>().Play("Rifle Reload");
     }
 }

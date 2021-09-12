@@ -31,6 +31,7 @@ public class Grenade : MonoBehaviour
     void Explode()
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
+        FindObjectOfType<AudioManager>().Play("Grenade Explode");
 
         Collider[] collidersToDestroy = Physics.OverlapSphere(transform.position, blastRadius);
 
