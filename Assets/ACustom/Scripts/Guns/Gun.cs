@@ -4,6 +4,8 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
+    // TO DO later: make variables private and use [SerializeField] to show in inspector
+
     public float damage = 10f;
     public float range = 100f;
     public float fireRate = 15f;
@@ -13,7 +15,8 @@ public class Gun : MonoBehaviour
     public float reloadTime = 1f;
     public int bulletsPerTap = 1;
     public float timeBetweenShooting, spread;
-    public bool isShotgun, isPistol, isRifle, isSMG, isFullAuto;
+    public bool isShotgun, isPistol, isRifle, isSMG;
+    public static bool isReloading = false;
 
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
@@ -21,7 +24,6 @@ public class Gun : MonoBehaviour
     public Animator animator;
     public TextMeshProUGUI text;
 
-    private bool isReloading = false;
     private bool readyToShoot;
     private float nextTimeToFire = 0f;
     private int currentAmmo, leftAmmo, ammoToReload;
@@ -45,7 +47,7 @@ public class Gun : MonoBehaviour
         if (isReloading)
             return;
 
-        if (maxAmmo > 0 && Input.GetKeyDown(KeyCode.R) || (maxAmmo > 0 && currentAmmo <= 0))
+        if (maxAmmo > 0 && Input.GetKeyDown(KeyCode.R) && (currentAmmo != clipSize) || (maxAmmo > 0 && currentAmmo <= 0))
         {
             StartCoroutine(Reload());
             return;
@@ -53,12 +55,12 @@ public class Gun : MonoBehaviour
 
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && readyToShoot && currentAmmo > 0)
         {
-            isFullAuto = true;
             nextTimeToFire = Time.time + 1f / fireRate;
             bulletsShot = bulletsPerTap;
             Shoot();
-
         }
+        if (!isReloading && Input.GetButtonDown("Fire1") && currentAmmo <= 0)
+            PlaySoundShoot();
 
         text.SetText(currentAmmo/ bulletsPerTap + " / " + maxAmmo/ bulletsPerTap);
 
@@ -154,14 +156,29 @@ public class Gun : MonoBehaviour
                 currentAmmo = maxAmmo;
             maxAmmo = maxAmmo - currentAmmo;
         }
-
         isReloading = false;
     }
 
     void PlaySoundShoot()
     {
-        if (isShotgun)
-            FindObjectOfType<AudioManager>().Play("Shotgun Shoot");
+        // for some reason this not change the sound to shot without pump even with bool or verify ammo, only works with bool if dont have the normal shot
+       // if (isShotgun && currentAmmo == 1)
+       //     FindObjectOfType<AudioManager>().Play("Shotgun LastShot");
+
+        if (isShotgun && (currentAmmo > 0 && currentAmmo > 0))
+            FindObjectOfType<AudioManager>().Play("Shotgun Shot");
+
+        if (isRifle && currentAmmo > 0)
+            FindObjectOfType<AudioManager>().Play("Rifle Shot");
+
+        if (isSMG && currentAmmo > 0)
+            FindObjectOfType<AudioManager>().Play("SMG Shot");
+
+        if (isPistol && currentAmmo > 0)
+            FindObjectOfType<AudioManager>().Play("Pistol Shot");
+
+        if (currentAmmo <=0)
+            FindObjectOfType<AudioManager>().Play("Empty Shot");
     }
     void PlaySoundReloading()
     {
@@ -170,5 +187,11 @@ public class Gun : MonoBehaviour
 
         if (isRifle)
             FindObjectOfType<AudioManager>().Play("Rifle Reload");
+
+        if (isSMG)
+            FindObjectOfType<AudioManager>().Play("SMG Reload");
+
+        if (isPistol)
+            FindObjectOfType<AudioManager>().Play("Pistol Reload");
     }
 }
