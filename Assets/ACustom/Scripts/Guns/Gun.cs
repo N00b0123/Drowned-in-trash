@@ -53,12 +53,13 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && readyToShoot && currentAmmo > 0)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && readyToShoot && currentAmmo > 0 && !GameManager.isPaused && !GameManager.isGameOver)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             bulletsShot = bulletsPerTap;
             Shoot();
         }
+        //empty shot sound
         if (!isReloading && Input.GetButtonDown("Fire1") && currentAmmo <= 0)
             PlaySoundShoot();
 
@@ -78,8 +79,7 @@ public class Gun : MonoBehaviour
 
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
-        RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, direction, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out RaycastHit hit, range))
         {
             IDamage target = hit.transform.GetComponent<IDamage>();
             if(target != null)
@@ -161,10 +161,6 @@ public class Gun : MonoBehaviour
 
     void PlaySoundShoot()
     {
-        // for some reason this not change the sound to shot without pump even with bool or verify ammo, only works with bool if dont have the normal shot
-       // if (isShotgun && currentAmmo == 1)
-       //     FindObjectOfType<AudioManager>().Play("Shotgun LastShot");
-
         if (isShotgun && (currentAmmo > 0 && currentAmmo > 0))
             FindObjectOfType<AudioManager>().Play("Shotgun Shot");
 

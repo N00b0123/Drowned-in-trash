@@ -32,26 +32,30 @@ public class Grenade : MonoBehaviour
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
         FindObjectOfType<AudioManager>().Play("Grenade Explode");
+        Damage();
+        MoveForce();
+        Destroy(gameObject);
+        hasExplode = true;
+    }
 
+    void Damage()
+    {
         Collider[] collidersToDestroy = Physics.OverlapSphere(transform.position, blastRadius);
 
         foreach (Collider nearbyObject in collidersToDestroy)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-            if(rb != null)
+            if (rb != null)
             {
                 rb.AddExplosionForce(explodeForce, transform.position, blastRadius);
             }
 
-            Destructible dest = nearbyObject.GetComponent<Destructible>();
-           if(dest != null)
+            IDamage dest = nearbyObject.GetComponent<IDamage>();
+            if (dest != null)
             {
                 dest.TakeDamage(damage);
             }
         }
-        MoveForce();
-        Destroy(gameObject);
-        hasExplode = true;
     }
 
     void MoveForce()
