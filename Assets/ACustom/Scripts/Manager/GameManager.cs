@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
         if (!isGameOver)
         {
             isGameOver = true;
-            Debug.Log("Faleceu");
             Cursor.lockState = CursorLockMode.None;
             gameplayUI.SetActive(false);
             gameOverUI.SetActive(true);

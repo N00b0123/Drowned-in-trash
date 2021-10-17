@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour, IDamage, IEnemy
+public class EnemyController : MonoBehaviour, IDamage
 {
     [SerializeField]
     float health = 100f;
@@ -43,7 +43,11 @@ public class EnemyController : MonoBehaviour, IDamage, IEnemy
 
         if (playerDistance <= lookRadius && canWalk) Move();
         else Patrol();
-        if (playerDistance <= attackRange && canAttack) Attack();
+        if (playerDistance <= attackRange && canAttack)
+        {
+            anim.SetBool("isAttacking", true);
+            agent.SetDestination(transform.position);
+        }
     }
 
     void Patrol()
@@ -81,7 +85,7 @@ public class EnemyController : MonoBehaviour, IDamage, IEnemy
             
     }
 
-    public void Move()
+    void Move()
     {
         anim.SetBool("isWalking", true);
         if(canWalk)
@@ -118,11 +122,11 @@ public class EnemyController : MonoBehaviour, IDamage, IEnemy
         }
     }
 
-    public void Attack()
+    void Attack()
     {
-        anim.SetBool("isAttacking", true);
+       // anim.SetBool("isAttacking", true);
         LayerMask player = LayerMask.GetMask("Player");
-        agent.SetDestination(transform.position);
+     //   agent.SetDestination(transform.position);
         FaceTarget();
         if (!alreadyAttacked)
         {
@@ -145,7 +149,7 @@ public class EnemyController : MonoBehaviour, IDamage, IEnemy
         anim.SetBool("isAttacking", false);
     }
 
-    public void Die()
+    void Die()
     {
         canAttack = false;
         canWalk = false;
