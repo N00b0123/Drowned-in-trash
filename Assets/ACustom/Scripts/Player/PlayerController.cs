@@ -91,4 +91,9 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         FindObjectOfType<GameManager>().GameOver();
     }
+
+    public void SetHealth(float addHealth)
+    {
+        health = health + addHealth;
+    }
 }

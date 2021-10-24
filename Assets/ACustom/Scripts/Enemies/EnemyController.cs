@@ -13,7 +13,8 @@ public class EnemyController : MonoBehaviour, IDamage
     float attackRange = 5;
     [SerializeField]
     Animator anim;
-    bool canWalk, canAttack;
+    bool isDead;
+   // bool canWalk, canAttack;
     public LayerMask isOnGround;
     float playerDistance;
     Transform target;
@@ -33,21 +34,25 @@ public class EnemyController : MonoBehaviour, IDamage
         agent = GetComponent<NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isDead", false);
-        canAttack = true;
-        canWalk = true;
+        isDead = false;
+        //canAttack = true;
+       // canWalk = true;
     }
 
     void Update()
     {
         playerDistance = Vector3.Distance(target.position, transform.position);
-
-        if (playerDistance <= lookRadius && canWalk) Move();
-        else Patrol();
-        if (playerDistance <= attackRange && canAttack)
+        if (!isDead)
         {
-            anim.SetBool("isAttacking", true);
-            agent.SetDestination(transform.position);
+            if (playerDistance <= lookRadius) Move();
+            else Patrol();
+            if (playerDistance <= attackRange)
+            {
+                anim.SetBool("isAttacking", true);
+                agent.SetDestination(transform.position);
+            }
         }
+        else return;
     }
 
     void Patrol()
@@ -55,7 +60,7 @@ public class EnemyController : MonoBehaviour, IDamage
         anim.SetBool("isWalking", true);
         if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet && canWalk)
+        if (walkPointSet)
             agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -77,7 +82,7 @@ public class EnemyController : MonoBehaviour, IDamage
         NavMeshPath navMeshPath = new NavMeshPath();
 
         //if (Physics.Raycast(walkPoint, -transform.up, 2f, isOnGround))
-        if ((agent.CalculatePath(walkPoint, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete) && canWalk)
+        if (agent.CalculatePath(walkPoint, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete)
         {
             agent.SetPath(navMeshPath);
             walkPointSet = true;
@@ -87,17 +92,14 @@ public class EnemyController : MonoBehaviour, IDamage
 
     void Move()
     {
-        anim.SetBool("isWalking", true);
-        if(canWalk)
-            agent.SetDestination(target.position);
-        else
+        if (isDead)
             agent.SetDestination(transform.position);
 
-        if (playerDistance <= agent.stoppingDistance)
-        {
-            FaceTarget();
-        }
+        anim.SetBool("isWalking", true);
+        agent.SetDestination(target.position);
 
+        if (playerDistance <= agent.stoppingDistance)
+            FaceTarget();
     }
 
     void FaceTarget()
@@ -151,8 +153,7 @@ public class EnemyController : MonoBehaviour, IDamage
 
     void Die()
     {
-        canAttack = false;
-        canWalk = false;
+        isDead = true;
         anim.SetBool("isDead", true);
         Invoke(nameof(DelayDeath), 4f);
     }

@@ -13,17 +13,33 @@ public class AutomaticDoor : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        AudioManager audio = FindObjectOfType<AudioManager>();
         if (collider.GetComponent<CharacterController>() != null)
         {
             OpenDoor();
+            audio.Play("OpenDoor");
+        }
+
+        if (collider.GetComponent<EnemyController>() != null)
+        {
+            OpenDoor();
+            audio.Play("OpenDoor");
         }
     }
 
     void OnTriggerExit(Collider collider)
     {
+        AudioManager audio = FindObjectOfType<AudioManager>();
         if (collider.GetComponent<CharacterController>() != null)
         {
             CloseDoor();
+            audio.Play("CloseDoor");
+        }
+
+        if (collider.GetComponent<EnemyController>() != null)
+        {
+            CloseDoor();
+            audio.Play("CloseDoor");
         }
     }
 

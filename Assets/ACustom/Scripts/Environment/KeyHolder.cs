@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class KeyHolder : MonoBehaviour
 {
     List<Key.KeyType> keyList;
+    [SerializeField] TextMeshProUGUI needKey;
+    [SerializeField] GameObject needKeyUI;
 
     void Awake()
     {
@@ -33,13 +36,21 @@ public class KeyHolder : MonoBehaviour
         {
             AddKey(key.GetKeyType());
             Destroy(key.gameObject);
-        }
+        } 
 
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if (keyDoor != null)
         {
             if (ContainsKey(keyDoor.GetKeyType()))
+            {
                 keyDoor.OpenDoor();
+                needKeyUI.SetActive(false);
+            }
+            else
+            {
+                needKey.SetText("voce precisa da chave " + keyDoor.GetKeyType());
+                needKeyUI.SetActive(true);
+            }
         }
     }
 
@@ -49,7 +60,12 @@ public class KeyHolder : MonoBehaviour
         if (keyDoor != null)
         {
             if (ContainsKey(keyDoor.GetKeyType()))
+            {
                 keyDoor.CloseDoor();
+                needKeyUI.SetActive(false);
+            }
+            else
+                needKeyUI.SetActive(false);
         }
     }
 }
