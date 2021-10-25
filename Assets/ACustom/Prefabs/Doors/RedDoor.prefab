@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8621dfcb3dbf229428e45425021e0875, type: 2}
+  - {fileID: 2100000, guid: 6a4483d77362d074db0f9554060c5534, type: 2}
   - {fileID: 2100000, guid: 15cb6b096bb78c7479c93c6e26153387, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 8528557023024144628}
   - component: {fileID: 8537946690217544782}
   - component: {fileID: 1700569682168944563}
+  - component: {fileID: 4593556450993416876}
   m_Layer: 8
   m_Name: Deck_Door_02_snaps002
   m_TagString: Untagged
@@ -194,6 +195,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9375005, y: 2.499689, z: 0.1875}
   m_Center: {x: 0.96875024, y: 1.2498429, z: -0.015624762}
+--- !u!208 &4593556450993416876
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514953689803381124}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1.25, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1, y: 1.3, z: 0}
+  m_TimeToStationary: 0
 --- !u!1 &8515744491755001179
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,8 +275,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.0364246, y: 3.0680919, z: 6.6774187}
-  m_Center: {x: 0.96454716, y: 1.3484411, z: -0.02069819}
+  m_Size: {x: 5.174103, y: 3.0680919, z: 8.986235}
+  m_Center: {x: 0.8396034, y: 1.3484411, z: -0.043444633}
 --- !u!114 &8515744491755001156
 MonoBehaviour:
   m_ObjectHideFlags: 0

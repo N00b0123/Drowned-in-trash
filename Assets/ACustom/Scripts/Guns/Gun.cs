@@ -6,23 +6,24 @@ public class Gun : MonoBehaviour
 {
     // TO DO later: make variables private and use [SerializeField] to show in inspector
 
-    public float damage = 10f;
-    public float range = 100f;
-    public float fireRate = 15f;
-    public float impactForce = 200f;
-    public int maxAmmo = 90;
-    public int clipSize = 30;
-    public float reloadTime = 1f;
-    public int bulletsPerTap = 1;
-    public float timeBetweenShooting, spread;
-    public bool isShotgun, isPistol, isRifle, isSMG;
+    [SerializeField] float damage = 10f;
+    [SerializeField] float range = 100f;
+    [SerializeField] float fireRate = 15f;
+    [SerializeField] float impactForce = 200f;
+    [SerializeField] int maxAmmo = 90;
+    [SerializeField] int clipSize = 30;
+    [SerializeField] float reloadTime = 1f;
+    [SerializeField] int bulletsPerTap = 1;
+    [SerializeField] float timeBetweenShooting, spread;
+    [SerializeField] bool isShotgun, isPistol, isRifle, isSMG;
     public static bool isReloading = false;
 
-    public Camera fpsCam;
-    public ParticleSystem muzzleFlash;
-    public GameObject impactEffect;
-    public Animator animator;
-    public TextMeshProUGUI text;
+    [SerializeField] Camera fpsCam;
+    [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] ParticleSystem bloodShot;
+    [SerializeField] GameObject impactEffect;
+    [SerializeField] Animator animator;
+    [SerializeField] TextMeshProUGUI text;
 
     private bool readyToShoot;
     private float nextTimeToFire = 0f;
@@ -81,20 +82,26 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, direction, out RaycastHit hit, range))
         {
+            EnemyController enemy = hit.transform.GetComponent<EnemyController>();
             IDamage target = hit.transform.GetComponent<IDamage>();
             if(target != null)
             {
                 target.TakeDamage(damage);
+                if (enemy != null)
+                    Instantiate(bloodShot, hit.point, Quaternion.LookRotation(hit.normal));
+
             }
 
             if (hit.rigidbody != null)
             {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
+
             if(hit.rigidbody == null)
             {
                 Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
+
             if (hit.collider.CompareTag("Player"))
             {
                 return;
@@ -161,33 +168,35 @@ public class Gun : MonoBehaviour
 
     void PlaySoundShoot()
     {
+        AudioManager audio = FindObjectOfType<AudioManager>();
         if (isShotgun && (currentAmmo > 0 && currentAmmo > 0))
-            FindObjectOfType<AudioManager>().Play("Shotgun Shot");
+            audio.Play("Shotgun Shot");
 
         if (isRifle && currentAmmo > 0)
-            FindObjectOfType<AudioManager>().Play("Rifle Shot");
+            audio.Play("Rifle Shot");
 
         if (isSMG && currentAmmo > 0)
-            FindObjectOfType<AudioManager>().Play("SMG Shot");
+            audio.Play("SMG Shot");
 
         if (isPistol && currentAmmo > 0)
-            FindObjectOfType<AudioManager>().Play("Pistol Shot");
+            audio.Play("Pistol Shot");
 
         if (currentAmmo <=0)
-            FindObjectOfType<AudioManager>().Play("Empty Shot");
+            audio.Play("Empty Shot");
     }
     void PlaySoundReloading()
     {
+        AudioManager audio = FindObjectOfType<AudioManager>();
         if (isShotgun)
-            FindObjectOfType<AudioManager>().Play("Shotgun Reload");
+            audio.Play("Shotgun Reload");
 
         if (isRifle)
-            FindObjectOfType<AudioManager>().Play("Rifle Reload");
+            audio.Play("Rifle Reload");
 
         if (isSMG)
-            FindObjectOfType<AudioManager>().Play("SMG Reload");
+            audio.Play("SMG Reload");
 
         if (isPistol)
-            FindObjectOfType<AudioManager>().Play("Pistol Reload");
+            audio.Play("Pistol Reload");
     }
 }

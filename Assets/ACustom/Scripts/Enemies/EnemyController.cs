@@ -44,7 +44,12 @@ public class EnemyController : MonoBehaviour, IDamage
         playerDistance = Vector3.Distance(target.position, transform.position);
         if (!isDead)
         {
-            if (playerDistance <= lookRadius) Move();
+            if (playerDistance <= lookRadius)
+            {
+            //    AudioManager audio = FindObjectOfType<AudioManager>();
+                Move();
+           //     audio.Play("EnemyBreath");
+            }
             else Patrol();
             if (playerDistance <= attackRange)
             {
@@ -52,7 +57,6 @@ public class EnemyController : MonoBehaviour, IDamage
                 agent.SetDestination(transform.position);
             }
         }
-        else return;
     }
 
     void Patrol()
@@ -67,8 +71,7 @@ public class EnemyController : MonoBehaviour, IDamage
         if (distanceToWalkPoint.magnitude < 3f)
         {
             walkPointSet = false;
-        }
-            
+        }     
     }
 
     void SearchWalkPoint()
@@ -80,18 +83,16 @@ public class EnemyController : MonoBehaviour, IDamage
 
         //verify if path is valid
         NavMeshPath navMeshPath = new NavMeshPath();
-
-        //if (Physics.Raycast(walkPoint, -transform.up, 2f, isOnGround))
         if (agent.CalculatePath(walkPoint, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete)
         {
             agent.SetPath(navMeshPath);
             walkPointSet = true;
-        }
-            
+        } 
     }
 
     void Move()
     {
+    //    AudioManager audio = FindObjectOfType<AudioManager>();
         if (isDead)
             agent.SetDestination(transform.position);
 
@@ -99,7 +100,10 @@ public class EnemyController : MonoBehaviour, IDamage
         agent.SetDestination(target.position);
 
         if (playerDistance <= agent.stoppingDistance)
+        {
+        //    audio.Play("EnemyBreath");
             FaceTarget();
+        }
     }
 
     void FaceTarget()
@@ -126,9 +130,7 @@ public class EnemyController : MonoBehaviour, IDamage
 
     void Attack()
     {
-       // anim.SetBool("isAttacking", true);
         LayerMask player = LayerMask.GetMask("Player");
-     //   agent.SetDestination(transform.position);
         FaceTarget();
         if (!alreadyAttacked)
         {
@@ -165,11 +167,4 @@ public class EnemyController : MonoBehaviour, IDamage
 
     //animations
     //refactor to module in future
-
-        
-
-
-        
-
-
 }

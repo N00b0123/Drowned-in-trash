@@ -5,8 +5,6 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-
-    // Start is called before the first frame update
     void Awake()
     {
         foreach(Sound s in sounds)
@@ -16,6 +14,8 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+        //    s.source.spatialBlend = 1f;
+        //    s.source.maxDistance = 5f;
         }
     }
 
@@ -29,4 +29,6 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Play();
     }
+
+    //Need be refactored to 3D Sound
 }

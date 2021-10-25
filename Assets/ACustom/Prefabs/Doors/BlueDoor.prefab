@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7810153260554627908}
   - component: {fileID: 7810153260554627911}
   - component: {fileID: 7810153260554627910}
+  - component: {fileID: 1888867527611448333}
   m_Layer: 8
   m_Name: Deck_Door_02_snaps002
   m_TagString: Untagged
@@ -96,6 +97,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9375005, y: 2.499689, z: 0.1875}
   m_Center: {x: 0.96875024, y: 1.2498429, z: -0.015624762}
+--- !u!208 &1888867527611448333
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810153260554627904}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1.25, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1, y: 1.3, z: 0}
+  m_TimeToStationary: 0
 --- !u!1 &7810153261036897650
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,8 +177,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.0364246, y: 3.0680919, z: 6.6774187}
-  m_Center: {x: 0.96454716, y: 1.3484411, z: -0.02069819}
+  m_Size: {x: 5.3979225, y: 3.0680919, z: 9.214285}
+  m_Center: {x: 0.8771267, y: 1.3484411, z: 0.21046352}
 --- !u!114 &7810153261036897648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +253,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8621dfcb3dbf229428e45425021e0875, type: 2}
+  - {fileID: 2100000, guid: 2bafec39c6815a049b1559f595077c9c, type: 2}
   - {fileID: 2100000, guid: 15cb6b096bb78c7479c93c6e26153387, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

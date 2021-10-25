@@ -31,11 +31,15 @@ public class KeyHolder : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        AudioManager audio = FindObjectOfType<AudioManager>();
         Key key = collider.GetComponent<Key>();
         if (key != null)
         {
             AddKey(key.GetKeyType());
             Destroy(key.gameObject);
+            needKey.SetText("Você Pegou A Chave " + key.GetKeyType());
+            ShowUI();
+            Invoke(nameof(HideUI),1f);
         } 
 
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
@@ -44,28 +48,41 @@ public class KeyHolder : MonoBehaviour
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 keyDoor.OpenDoor();
-                needKeyUI.SetActive(false);
+                audio.Play("OpenDoor");
+                HideUI();
             }
             else
             {
-                needKey.SetText("voce precisa da chave " + keyDoor.GetKeyType());
-                needKeyUI.SetActive(true);
+                needKey.SetText("Você Precisa Da Chave " + keyDoor.GetKeyType());
+                ShowUI();
             }
         }
     }
 
     private void OnTriggerExit(Collider collider)
     {
+        AudioManager audio = FindObjectOfType<AudioManager>();
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if (keyDoor != null)
         {
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 keyDoor.CloseDoor();
-                needKeyUI.SetActive(false);
+                audio.Play("CloseDoor");
+                HideUI();
             }
             else
-                needKeyUI.SetActive(false);
+                HideUI();
         }
+    }
+
+    void ShowUI()
+    {
+        needKeyUI.SetActive(true);
+    }
+
+    void HideUI()
+    {
+        needKeyUI.SetActive(false);
     }
 }
