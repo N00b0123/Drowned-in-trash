@@ -31,7 +31,7 @@ public class Grenade : MonoBehaviour
     void Explode()
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
-        FindObjectOfType<AudioManager>().Play("Grenade Explode");
+        AudioManager.PlaySound(AudioManager.Sound.Grenade);
         Damage();
         MoveForce();
         Destroy(gameObject);

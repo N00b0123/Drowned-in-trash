@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static bool isGameOver = false;
     public static bool isPaused = false;
+    bool isOpenPDA = false;
     public GameObject pauseMenuUI;
     public GameObject gameplayUI;
     public GameObject gameOverUI;
@@ -22,7 +23,25 @@ public class GameManager : MonoBehaviour
                 else
                     Pause();
             }
+
+            if (Input.GetKeyDown(KeyCode.Tab) && !isGameOver && !isPaused)
+            {
+                if (isOpenPDA)
+                    ClosePDA();
+                else
+                    OpenPDA();
+            }
         }
+    }
+
+    public void OpenPDA()
+    {
+
+    }
+
+    public void ClosePDA()
+    {
+
     }
 
     public void Pause()

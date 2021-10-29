@@ -31,7 +31,6 @@ public class KeyHolder : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        AudioManager audio = FindObjectOfType<AudioManager>();
         Key key = collider.GetComponent<Key>();
         if (key != null)
         {
@@ -48,7 +47,7 @@ public class KeyHolder : MonoBehaviour
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 keyDoor.OpenDoor();
-                audio.Play("OpenDoor");
+                AudioManager.PlaySound(AudioManager.Sound.OpenDoor);
                 HideUI();
             }
             else
@@ -61,18 +60,19 @@ public class KeyHolder : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        AudioManager audio = FindObjectOfType<AudioManager>();
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if (keyDoor != null)
         {
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 keyDoor.CloseDoor();
-                audio.Play("CloseDoor");
+                AudioManager.PlaySound(AudioManager.Sound.CloseDoor);
                 HideUI();
             }
             else
+            {
                 HideUI();
+            }
         }
     }
 

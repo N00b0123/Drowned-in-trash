@@ -1,34 +1,44 @@
-using UnityEngine.Audio;
 using System;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public static class AudioManager
 {
-    public Sound[] sounds;
-    void Awake()
+    public enum Sound
     {
-        foreach(Sound s in sounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
-        //    s.source.spatialBlend = 1f;
-        //    s.source.maxDistance = 5f;
-        }
+        RifleShot,
+        RifleReload,
+        ShotgunShot,
+        ShotgunReload,
+        SmgShot,
+        SmgReload,
+        PistolShot,
+        PistolReload,
+        EmptyShot,
+        WoodBoxBreaking,
+        Grenade,
+        OpenDoor,
+        CloseDoor,
     }
 
-    public void Play(string name)
+    public static void PlaySound(Sound sound)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if(s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " not found!");
-            return;
-        }
-        s.source.Play();
+        GameObject soundGameObject = new GameObject("Sound");
+        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        audioSource.PlayOneShot(GetAudioClip(sound));
     }
 
-    //Need be refactored to 3D Sound
+    private static AudioClip GetAudioClip(Sound sound)
+    {
+        foreach(GameAssets.SoundAudioClip soundAudioClip in GameAssets.instance.soundAudioClipArray)
+        {
+            if(soundAudioClip.sound == sound)
+            {
+                return soundAudioClip.audioClip;
+            }
+        }
+
+        Debug.LogError("Sound " + sound + " not found!");
+        return null;
+    }
+
 }

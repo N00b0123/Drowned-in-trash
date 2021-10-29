@@ -4,8 +4,6 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
-    // TO DO later: make variables private and use [SerializeField] to show in inspector
-
     [SerializeField] float damage = 10f;
     [SerializeField] float range = 100f;
     [SerializeField] float fireRate = 15f;
@@ -42,7 +40,6 @@ public class Gun : MonoBehaviour
         animator.SetBool("Reloading", false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isReloading)
@@ -88,8 +85,9 @@ public class Gun : MonoBehaviour
             {
                 target.TakeDamage(damage);
                 if (enemy != null)
+                {
                     Instantiate(bloodShot, hit.point, Quaternion.LookRotation(hit.normal));
-
+                }
             }
 
             if (hit.rigidbody != null)
@@ -114,8 +112,11 @@ public class Gun : MonoBehaviour
         Invoke("ResetShot", timeBetweenShooting);
 
         if (bulletsShot > 0 && currentAmmo > 0)
+        {
             Invoke("Shoot", timeBetweenShooting);
+        }
     }
+
     void ResetShot()
     {
         readyToShoot = true;
@@ -158,9 +159,13 @@ public class Gun : MonoBehaviour
         else
         {
             if (clipSize < maxAmmo)
+            {
                 currentAmmo = clipSize;
+            }
             else
+            {
                 currentAmmo = maxAmmo;
+            }
             maxAmmo = maxAmmo - currentAmmo;
         }
         isReloading = false;
@@ -168,35 +173,51 @@ public class Gun : MonoBehaviour
 
     void PlaySoundShoot()
     {
-        AudioManager audio = FindObjectOfType<AudioManager>();
-        if (isShotgun && (currentAmmo > 0 && currentAmmo > 0))
-            audio.Play("Shotgun Shot");
+        if (isShotgun && currentAmmo > 0)
+        {
+            AudioManager.PlaySound(AudioManager.Sound.ShotgunShot);
+        }
 
         if (isRifle && currentAmmo > 0)
-            audio.Play("Rifle Shot");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.RifleShot);
+        }
 
         if (isSMG && currentAmmo > 0)
-            audio.Play("SMG Shot");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.SmgShot);
+        }
 
         if (isPistol && currentAmmo > 0)
-            audio.Play("Pistol Shot");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.PistolShot);
+        }
 
-        if (currentAmmo <=0)
-            audio.Play("Empty Shot");
+        if (currentAmmo <= 0)
+        {
+            AudioManager.PlaySound(AudioManager.Sound.EmptyShot);
+        }
     }
     void PlaySoundReloading()
     {
-        AudioManager audio = FindObjectOfType<AudioManager>();
         if (isShotgun)
-            audio.Play("Shotgun Reload");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.ShotgunReload);
+        }
 
         if (isRifle)
-            audio.Play("Rifle Reload");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.RifleReload);
+        }
 
         if (isSMG)
-            audio.Play("SMG Reload");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.SmgReload);
+        }
 
         if (isPistol)
-            audio.Play("Pistol Reload");
+        {
+            AudioManager.PlaySound(AudioManager.Sound.PistolReload);
+        }
     }
 }

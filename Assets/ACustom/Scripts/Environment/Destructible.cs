@@ -25,7 +25,7 @@ public class Destructible : MonoBehaviour, IDamage
     {
         if (isWoodBox)
         {
-            FindObjectOfType<AudioManager>().Play("Wood Box Breaking");
+            AudioManager.PlaySound(AudioManager.Sound.WoodBoxBreaking);
         }
     }
 }
