@@ -27,11 +27,15 @@ public class Grenade : MonoBehaviour
             Explode();
         }
     }
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
 
     void Explode()
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
-        AudioManager.PlaySound(AudioManager.Sound.Grenade);
+        AudioManager.PlaySound(AudioManager.Sound.Grenade, GetPosition());
         Damage();
         MoveForce();
         Destroy(gameObject);

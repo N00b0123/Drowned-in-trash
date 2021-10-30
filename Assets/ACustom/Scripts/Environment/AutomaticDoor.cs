@@ -11,18 +11,23 @@ public class AutomaticDoor : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.GetComponent<CharacterController>() != null)
         {
             OpenDoor();
-            AudioManager.PlaySound(AudioManager.Sound.OpenDoor);
+            AudioManager.PlaySound(AudioManager.Sound.OpenDoor, GetPosition());
         }
 
         if (collider.GetComponent<EnemyController>() != null)
         {
             OpenDoor();
-            AudioManager.PlaySound(AudioManager.Sound.OpenDoor);
+            AudioManager.PlaySound(AudioManager.Sound.OpenDoor, GetPosition());
         }
     }
 
@@ -31,13 +36,13 @@ public class AutomaticDoor : MonoBehaviour
         if (collider.GetComponent<CharacterController>() != null)
         {
             CloseDoor();
-            AudioManager.PlaySound(AudioManager.Sound.CloseDoor);
+            AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
         }
 
         if (collider.GetComponent<EnemyController>() != null)
         {
             CloseDoor();
-            AudioManager.PlaySound(AudioManager.Sound.CloseDoor);
+            AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
         }
     }
 

@@ -12,6 +12,11 @@ public class KeyDoor : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     public Key.KeyType GetKeyType()
     {
         return keyType;
@@ -20,10 +25,12 @@ public class KeyDoor : MonoBehaviour
     public void OpenDoor()
     {
         animator.SetBool("Open", true);
+        AudioManager.PlaySound(AudioManager.Sound.OpenDoor, GetPosition());
     }
 
     public void CloseDoor()
     {
         animator.SetBool("Open", false);
+        AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
     }
 }

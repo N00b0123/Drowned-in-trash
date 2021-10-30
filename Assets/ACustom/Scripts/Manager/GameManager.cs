@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
     public GameObject gameplayUI;
     public GameObject gameOverUI;
 
+    private void Awake()
+    {
+        AudioManager.Initialize();
+    }
+
     private void Update()
     {
         if (!(SceneManager.GetActiveScene().name == "MainMenu"))

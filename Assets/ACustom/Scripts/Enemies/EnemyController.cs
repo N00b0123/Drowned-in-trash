@@ -59,6 +59,11 @@ public class EnemyController : MonoBehaviour, IDamage
         }
     }
 
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     void Patrol()
     {
         anim.SetBool("isWalking", true);

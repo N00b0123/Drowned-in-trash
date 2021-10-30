@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour, IDamage
         healthText.SetText("" + health);
     }
 
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     void PlayerMove()
     {
         float x = Input.GetAxis("Horizontal");

@@ -47,7 +47,6 @@ public class KeyHolder : MonoBehaviour
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 keyDoor.OpenDoor();
-                AudioManager.PlaySound(AudioManager.Sound.OpenDoor);
                 HideUI();
             }
             else
@@ -66,7 +65,6 @@ public class KeyHolder : MonoBehaviour
             if (ContainsKey(keyDoor.GetKeyType()))
             {
                 keyDoor.CloseDoor();
-                AudioManager.PlaySound(AudioManager.Sound.CloseDoor);
                 HideUI();
             }
             else
