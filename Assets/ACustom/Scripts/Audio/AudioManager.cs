@@ -30,6 +30,7 @@ public static class AudioManager
     {
         if (CanPlaySound(sound))
         {
+            //Rebuild in future to object polling
             GameObject soundGameObject = new GameObject("Sound");
             soundGameObject.transform.position = position;
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();

@@ -8,10 +8,10 @@ public class Gun : MonoBehaviour
     [SerializeField] float range = 100f;
     [SerializeField] float fireRate = 15f;
     [SerializeField] float impactForce = 200f;
-    [SerializeField] int maxAmmo = 90;
-    [SerializeField] int clipSize = 30;
+    float maxAmmo;
+    [SerializeField] float clipSize = 30;
     [SerializeField] float reloadTime = 1f;
-    [SerializeField] int bulletsPerTap = 1;
+    [SerializeField] float bulletsPerTap = 1;
     [SerializeField] float timeBetweenShooting, spread;
     [SerializeField] bool isShotgun, isPistol, isRifle, isSMG;
     public static bool isReloading = false;
@@ -25,11 +25,28 @@ public class Gun : MonoBehaviour
 
     private bool readyToShoot;
     private float nextTimeToFire = 0f;
-    private int currentAmmo, leftAmmo, ammoToReload;
-    private int bulletsShot;
+    private float currentAmmo, leftAmmo, ammoToReload;
+    private float bulletsShot;
 
     public void Awake()
     {
+        if (isRifle)
+        {
+            maxAmmo = 60;
+        }
+        if (isPistol)
+        {
+            maxAmmo = 40;
+        }
+        if (isShotgun)
+        {
+            maxAmmo = 40;
+        }
+        if (isSMG)
+        {
+            maxAmmo = 60;
+        }
+
         currentAmmo = clipSize;
         readyToShoot = true;
     }
@@ -169,6 +186,11 @@ public class Gun : MonoBehaviour
             maxAmmo = maxAmmo - currentAmmo;
         }
         isReloading = false;
+    }
+
+    public void SetAmmo(float ammo)
+    {
+        maxAmmo = maxAmmo + ammo;
     }
 
     void PlaySoundShoot()
