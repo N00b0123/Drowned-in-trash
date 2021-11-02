@@ -5,10 +5,26 @@ using TMPro;
 
 public class Ammo : MonoBehaviour, ICollectable
 {
-    [SerializeField] float ammo;
+    [SerializeField] int ammo;
+    int ammoText;
     [SerializeField] Gun gun;
     [SerializeField] TextMeshProUGUI collectUIText;
     [SerializeField] GameObject collectUI;
+    string ammoTypeText;
+    public TypeOfAmmo typeOfAmmo;
+
+    void Start()
+    {
+        ammoText = ammo;
+    }
+
+    public enum TypeOfAmmo
+    {
+        Rifle,
+        Pistol,
+        Shotgun,
+        SMG,
+    }
 
     public void Use()
     {
@@ -24,6 +40,43 @@ public class Ammo : MonoBehaviour, ICollectable
 
     void SetText()
     {
-        collectUIText.SetText("Você pegou " + ammo + " de Munição");
+        SetTypeOfAmmoText(typeOfAmmo);
+        collectUIText.SetText("Você pegou " + ammoText + " de Munição de " + ammoTypeText);
+    }
+
+    string SetTypeOfAmmoText(TypeOfAmmo typeAmmo)
+    {
+        switch(typeAmmo)
+        {
+            case TypeOfAmmo.Rifle:
+                {
+                    ammoTypeText = "Rifle";
+                    return ammoTypeText;
+                }
+
+            case TypeOfAmmo.Pistol:
+                {
+                    ammoTypeText = "Pistola";
+                    return ammoTypeText;
+                }
+
+            case TypeOfAmmo.Shotgun:
+                {
+                    ammoTypeText = "Espingarda";
+                    ammoText = ammoText / 5;
+                    return ammoTypeText;
+                }
+
+            case TypeOfAmmo.SMG:
+                {
+                    ammoTypeText = "Submetralhadora";
+                    return ammoTypeText;
+                }
+
+            default:
+                {
+                    return null;
+                }
+        }
     }
 }

@@ -5,10 +5,10 @@ using TMPro;
 
 public class GrenadeThrower : MonoBehaviour
 {
-    public float throwForce = 20f;
-    public TextMeshProUGUI text;
-    public GameObject grenadePrefab;
-    public int grenadeAmmo = 3;
+    [SerializeField] float throwForce = 20f;
+    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] GameObject grenadePrefab;
+    [SerializeField] int grenadeAmmo = 3;
 
     // Update is called once per frame
     void Update()
@@ -25,6 +25,10 @@ public class GrenadeThrower : MonoBehaviour
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
         grenadeAmmo--;
+    }
 
+    public void SetAmmo(int ammo)
+    {
+        grenadeAmmo = grenadeAmmo + ammo;
     }
 }
