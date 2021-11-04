@@ -62,13 +62,13 @@ public class Gun : MonoBehaviour
         if (isReloading)
             return;
 
-        if (maxAmmo > 0 && Input.GetKeyDown(KeyCode.R) && (currentAmmo != clipSize) || (maxAmmo > 0 && currentAmmo <= 0))
+        if ((maxAmmo > 0 && Input.GetKeyDown(KeyCode.R) && (currentAmmo != clipSize) || (maxAmmo > 0 && currentAmmo <= 0)) && !GameManager.isPaused && !GameManager.isGameOver && !PDA.isOpenPDA)
         {
             StartCoroutine(Reload());
             return;
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && readyToShoot && currentAmmo > 0 && !GameManager.isPaused && !GameManager.isGameOver)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && readyToShoot && currentAmmo > 0 && !GameManager.isPaused && !GameManager.isGameOver && !PDA.isOpenPDA)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             bulletsShot = bulletsPerTap;

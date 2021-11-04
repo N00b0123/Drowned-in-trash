@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static bool isGameOver = false;
     public static bool isPaused = false;
-    bool isOpenPDA = false;
     public GameObject pauseMenuUI;
     public GameObject gameplayUI;
     public GameObject gameOverUI;
@@ -21,32 +20,14 @@ public class GameManager : MonoBehaviour
     {
         if (!(SceneManager.GetActiveScene().name == "MainMenu"))
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+            if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver && !PDA.isOpenPDA)
             {
                 if (isPaused)
                     Resume();
                 else
                     Pause();
             }
-
-            if (Input.GetKeyDown(KeyCode.Tab) && !isGameOver && !isPaused)
-            {
-                if (isOpenPDA)
-                    ClosePDA();
-                else
-                    OpenPDA();
-            }
         }
-    }
-
-    public void OpenPDA()
-    {
-
-    }
-
-    public void ClosePDA()
-    {
-
     }
 
     public void Pause()
@@ -75,12 +56,12 @@ public class GameManager : MonoBehaviour
 
     public void GoToMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void NewGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
         isGameOver = false;
         isPaused = false;
         Time.timeScale = 1f;

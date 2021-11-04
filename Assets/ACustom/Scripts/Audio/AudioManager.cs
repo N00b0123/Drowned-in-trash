@@ -35,7 +35,7 @@ public static class AudioManager
             soundGameObject.transform.position = position;
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
             audioSource.clip = GetAudioClip(sound);
-            audioSource.maxDistance = 30f;
+            audioSource.maxDistance = 50f;
             audioSource.spatialBlend = 1f;
             audioSource.rolloffMode = AudioRolloffMode.Linear;
             audioSource.dopplerLevel = 0f;
