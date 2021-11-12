@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Wallet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    int residue;
+    [SerializeField] TextMeshProUGUI residueText;
+
+    private void Update()
     {
-        
+        residueText.SetText("" + residue);
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetResidue()
     {
-        
+        return residue;
+    }
+
+    public void SetResidue(int quantity)
+    {
+        residue = residue + quantity;
     }
 }

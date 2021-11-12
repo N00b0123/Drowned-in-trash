@@ -36,7 +36,18 @@ public class KeyHolder : MonoBehaviour
         {
             AddKey(key.GetKeyType());
             Destroy(key.gameObject);
-            needKey.SetText("Você Pegou A Chave " + key.GetKeyType());
+            if(key.GetKeyType() == Key.KeyType.Azul)
+            {
+                needKey.SetText("<color=#11166F>Você Pegou A Chave " + key.GetKeyType() + " </color>");
+            }
+            if (key.GetKeyType() == Key.KeyType.Vermelha)
+            {
+                needKey.SetText("<color=#7a1702>Você Pegou A Chave " + key.GetKeyType() + " </color>");
+            }
+            if (key.GetKeyType() == Key.KeyType.Amarela)
+            {
+                needKey.SetText("<color=#FFFF00>Você Pegou A Chave " + key.GetKeyType() + " </color>");
+            }
             ShowUI();
             Invoke(nameof(HideUI),1f);
         } 
@@ -51,7 +62,18 @@ public class KeyHolder : MonoBehaviour
             }
             else
             {
-                needKey.SetText("Você Precisa Da Chave " + keyDoor.GetKeyType());
+                if (keyDoor.GetKeyType() == Key.KeyType.Azul)
+                {
+                    needKey.SetText("<color=#11166F>Você Precisa Da Chave " + keyDoor.GetKeyType() + " </color>");
+                }
+                if (keyDoor.GetKeyType() == Key.KeyType.Vermelha)
+                {
+                    needKey.SetText("<color=#7a1702>Você Precisa Da Chave " + keyDoor.GetKeyType() + " </color>");
+                }
+                if (keyDoor.GetKeyType() == Key.KeyType.Amarela)
+                {
+                    needKey.SetText("<color=#FFFF00>Você Precisa Da Chave " + keyDoor.GetKeyType() + " </color>");
+                }
                 ShowUI();
             }
         }
