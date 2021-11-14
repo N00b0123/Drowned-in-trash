@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: 50
-  gun: {fileID: 0}
-  collectUIText: {fileID: 0}
-  collectUI: {fileID: 0}
+  gun: {fileID: 3428361829348936906, guid: cf36960edfe5c984ab4a7c97cea9cdd6, type: 3}
+  collectUIText: {fileID: 1362419498515531720, guid: d3bc7105ae661304980a1878c3e5b161, type: 3}
+  collectUI: {fileID: 937647598112045243, guid: bd7d212ac8bb2dd47b36051e98e33748, type: 3}
   typeOfAmmo: 3
 --- !u!1 &9169362344931365776
 GameObject:

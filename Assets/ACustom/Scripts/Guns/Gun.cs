@@ -37,6 +37,7 @@ public class Gun : MonoBehaviour
         if (isPistol)
         {
             maxAmmo = 40;
+            clipSize = 7;
         }
         if (isShotgun)
         {

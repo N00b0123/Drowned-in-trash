@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 33838297749678062}
   - component: {fileID: 23724139574392822}
   - component: {fileID: 64267573689418294}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gen_Ramp_01_snaps002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4350049322196670
 Transform:
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 8621dfcb3dbf229428e45425021e0875, type: 2}
-  - {fileID: 2100000, guid: 15cb6b096bb78c7479c93c6e26153387, type: 2}
+  - {fileID: 2100000, guid: 528bab4d959abd8438a427ca2334205f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

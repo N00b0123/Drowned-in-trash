@@ -10439,9 +10439,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: 5
-  grenadeThrower: {fileID: 0}
-  collectUIText: {fileID: 0}
-  collectUI: {fileID: 0}
+  grenadeThrower: {fileID: 5700486892041372189, guid: e8f358ceedf0110458e6459cf11b4e4e, type: 3}
+  collectUIText: {fileID: 1362419498515531720, guid: d3bc7105ae661304980a1878c3e5b161, type: 3}
+  collectUI: {fileID: 937647598112045243, guid: bd7d212ac8bb2dd47b36051e98e33748, type: 3}
 --- !u!1 &2066149562117841417
 GameObject:
   m_ObjectHideFlags: 0

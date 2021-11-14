@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  playerController: {fileID: 0}
-  collectUIText: {fileID: 0}
-  collectUI: {fileID: 0}
+  playerController: {fileID: 8987339756073288016, guid: 3ce4ca2d492e57b458e4c1783f39f3cd, type: 3}
+  collectUIText: {fileID: 1362419498515531720, guid: d3bc7105ae661304980a1878c3e5b161, type: 3}
+  collectUI: {fileID: 937647598112045243, guid: bd7d212ac8bb2dd47b36051e98e33748, type: 3}
 --- !u!1 &9207218855558480083
 GameObject:
   m_ObjectHideFlags: 0

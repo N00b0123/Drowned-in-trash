@@ -31,6 +31,11 @@ public class KeyDoor : MonoBehaviour
     public void CloseDoor()
     {
         animator.SetBool("Open", false);
+        Invoke(nameof(DelaySound), 0.5f);
+    }
+
+    void DelaySound()
+    {
         AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
     }
 }

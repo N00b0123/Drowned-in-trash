@@ -36,14 +36,19 @@ public class AutomaticDoor : MonoBehaviour
         if (collider.GetComponent<CharacterController>() != null)
         {
             CloseDoor();
-            AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
+            Invoke(nameof(DelayCloseSound), 0.5f);
         }
 
         if (collider.GetComponent<EnemyController>() != null)
         {
             CloseDoor();
-            AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
+            Invoke(nameof(DelayCloseSound), 0.5f);
         }
+    }
+
+    void DelayCloseSound()
+    {
+        AudioManager.PlaySound(AudioManager.Sound.CloseDoor, GetPosition());
     }
 
     public void OpenDoor()
