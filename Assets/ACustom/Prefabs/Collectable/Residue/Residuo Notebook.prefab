@@ -156,6 +156,7 @@ MonoBehaviour:
   wallet: {fileID: 0}
   collectUIText: {fileID: 0}
   collectUI: {fileID: 0}
+  enemyPf: {fileID: 4904653122308753060, guid: 0d03af0b4597a1949ba9c927ea2880be, type: 3}
 --- !u!1 &353100057135185460
 GameObject:
   m_ObjectHideFlags: 0
