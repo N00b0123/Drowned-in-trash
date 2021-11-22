@@ -97,6 +97,8 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, direction, out RaycastHit hit, range))
         {
+
+            Transform objHit = hit.collider.transform;
             EnemyController enemy = hit.transform.GetComponent<EnemyController>();
             IDamage target = hit.transform.GetComponent<IDamage>();
             if(target != null)
@@ -104,7 +106,8 @@ public class Gun : MonoBehaviour
                 target.TakeDamage(damage);
                 if (enemy != null)
                 {
-                    Instantiate(bloodShot, hit.point, Quaternion.LookRotation(hit.normal));
+                   ParticleSystem blood = Instantiate(bloodShot, hit.point, Quaternion.LookRotation(hit.normal));
+                   blood.transform.SetParent(objHit);
                 }
             }
 
@@ -113,9 +116,10 @@ public class Gun : MonoBehaviour
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
 
-            if(hit.rigidbody == null)
+            if (hit.rigidbody == null && enemy == null)
             {
-                Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                GameObject decal = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                decal.transform.SetParent(objHit);
             }
 
             if (hit.collider.CompareTag("Player"))

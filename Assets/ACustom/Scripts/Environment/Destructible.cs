@@ -6,14 +6,13 @@ public class Destructible : MonoBehaviour, IDamage
 {
     public float health = 100f;
     [SerializeField] GameObject destroyedVersion;
-    [SerializeField] GameObject dropPositionObj;
     [SerializeField] List<GameObject> dropObj;
     [SerializeField] int[] table = { 50, 30, 30, 20, 10, 5, 5, 5, 5, 5 };
     [SerializeField] bool isWoodBox;
     GameObject drop;
     int total;
     int randomNumber;
-    Vector3 dropPosition;
+    Vector3 dropPosition, brokenPosition;
 
     void Start()
     {
@@ -21,8 +20,6 @@ public class Destructible : MonoBehaviour, IDamage
         {
             total = total + item;
         }
-
-        dropPosition = dropPositionObj.transform.position;
     }
 
     public Vector3 GetPosition()
@@ -64,7 +61,6 @@ public class Destructible : MonoBehaviour, IDamage
     {
         if (gameObject != null)
         {
-            
             DropItem();
             InstanceBroken();
             PlaySound();
@@ -76,15 +72,17 @@ public class Destructible : MonoBehaviour, IDamage
 
     void InstanceBroken()
     {
+        brokenPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         if (gameObject != null)
         {
-            Instantiate(destroyedVersion, transform.position, Quaternion.identity);
+            Instantiate(destroyedVersion, brokenPosition, transform.rotation);
         }
         else return;
     }
 
     void DropInstance()
     {
+        dropPosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         if (gameObject != null)
         {
             Instantiate(drop, dropPosition, Quaternion.identity);

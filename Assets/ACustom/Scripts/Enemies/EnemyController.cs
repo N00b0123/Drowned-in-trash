@@ -160,6 +160,7 @@ public class EnemyController : MonoBehaviour, IDamage
 
     void Die()
     {
+        GetComponent<Collider>().enabled = false;
         isDead = true;
         anim.SetBool("isDead", true);
         Invoke(nameof(DelayDeath), 4f);
