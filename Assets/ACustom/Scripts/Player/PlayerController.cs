@@ -74,11 +74,13 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            AudioManager.PlaySound(AudioManager.Sound.PlayerJump);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             numberOfJumps++;
         }
         if (Input.GetButtonDown("Jump") && !isGrounded && numberOfJumps < maxJumps)
         {
+            AudioManager.PlaySound(AudioManager.Sound.PlayerJump);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             numberOfJumps++;
         }
@@ -86,7 +88,12 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
+        if (health > 0)
+        {
+            health -= amount;
+            AudioManager.PlaySound(AudioManager.Sound.PlayerPain);
+        }
+            
         if (health <= 0)
         {
             Die();
@@ -94,6 +101,7 @@ public class PlayerController : MonoBehaviour, IDamage
     }
     void Die()
     {
+        AudioManager.PlaySound(AudioManager.Sound.PlayerDie);
         FindObjectOfType<GameManager>().GameOver();
     }
 

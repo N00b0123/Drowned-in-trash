@@ -46,9 +46,8 @@ public class EnemyController : MonoBehaviour, IDamage
         {
             if (playerDistance <= lookRadius)
             {
-            //    AudioManager audio = FindObjectOfType<AudioManager>();
+                AudioManager.PlaySound(AudioManager.Sound.EnemyBreath, GetPosition());
                 Move();
-           //     audio.Play("EnemyBreath");
             }
             else Patrol();
             if (playerDistance <= attackRange)
@@ -126,6 +125,7 @@ public class EnemyController : MonoBehaviour, IDamage
 
     public void TakeDamage(float amount)
     {
+        AudioManager.PlaySound(AudioManager.Sound.EnemyPain, GetPosition());
         health -= amount;
         if (health <= 0)
         {
@@ -160,6 +160,7 @@ public class EnemyController : MonoBehaviour, IDamage
 
     void Die()
     {
+        AudioManager.PlaySound(AudioManager.Sound.EnemyDie, GetPosition());
         GetComponent<Collider>().enabled = false;
         isDead = true;
         anim.SetBool("isDead", true);
