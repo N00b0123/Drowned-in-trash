@@ -156,8 +156,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09585661dd2713a47a6037f1a7da87e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
+  health: 100
   destroyedVersion: {fileID: 4895372717291037417, guid: dceaf496a54888f4483d104740a8fb34, type: 3}
-  dropPositionObj: {fileID: 5178942986090640586}
+  dropObj:
+  - {fileID: 2528129983202737665, guid: a2fd7fedc7cd66d48bde2ae71405c18e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 2528129983202737665, guid: a2fd7fedc7cd66d48bde2ae71405c18e, type: 3}
+  table: 320000001e0000001e000000140000000a0000000500000005000000050000000500000005000000050000001e000000
   isWoodBox: 1
-  randomLoot: {fileID: 0}

@@ -5,6 +5,8 @@ using TMPro;
 
 public class PDA : MonoBehaviour
 {
+
+
     public static bool isOpenPDA = false;
     [SerializeField] GameObject pdaUI;
     [SerializeField] GameObject gameplayUI;
@@ -36,6 +38,8 @@ public class PDA : MonoBehaviour
             }
         }
     }
+
+    #region RealPDA Functions
 
     public void OpenRealHome()
     {
@@ -122,7 +126,21 @@ public class PDA : MonoBehaviour
         diseases6.SetActive(true);
     }
 
+    void CloseRealSubmenu()
+    {
+        realHome.SetActive(false);
+        whatIs.SetActive(false);
+        whyHasSoMany.SetActive(false);
+        whyIsAProblem.SetActive(false);
+        diseases1.SetActive(false);
+        diseases2.SetActive(false);
+        diseases3.SetActive(false);
+        diseases4.SetActive(false);
+        diseases5.SetActive(false);
+        diseases6.SetActive(false);
+    }
 
+    #endregion
 
     void OpenPDA()
     {
@@ -144,17 +162,5 @@ public class PDA : MonoBehaviour
         isOpenPDA = false;
     }
 
-    void CloseRealSubmenu()
-    {
-        realHome.SetActive(false);
-        whatIs.SetActive(false);
-        whyHasSoMany.SetActive(false);
-        whyIsAProblem.SetActive(false);
-        diseases1.SetActive(false);
-        diseases2.SetActive(false);
-        diseases3.SetActive(false);
-        diseases4.SetActive(false);
-        diseases5.SetActive(false);
-        diseases6.SetActive(false);
-    }
+
 }

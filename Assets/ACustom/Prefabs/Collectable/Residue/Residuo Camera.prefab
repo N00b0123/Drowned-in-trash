@@ -258,4 +258,10 @@ MonoBehaviour:
   wallet: {fileID: 0}
   collectUIText: {fileID: 0}
   collectUI: {fileID: 0}
-  enemyPf: {fileID: 4904653122308753060, guid: 0d03af0b4597a1949ba9c927ea2880be, type: 3}
+  spawnRadius: 20
+  dropPf:
+  - {fileID: 2528129983202737665, guid: a2fd7fedc7cd66d48bde2ae71405c18e, type: 3}
+  - {fileID: 4904653122308753060, guid: 0d03af0b4597a1949ba9c927ea2880be, type: 3}
+  - {fileID: 2528129983202737665, guid: a2fd7fedc7cd66d48bde2ae71405c18e, type: 3}
+  - {fileID: 9208225554684151280, guid: 7893da0a32b63a54494189b5cd8dce6f, type: 3}
+  table: 1e000000280000001e00000028000000

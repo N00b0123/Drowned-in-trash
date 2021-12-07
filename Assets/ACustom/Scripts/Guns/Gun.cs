@@ -116,7 +116,7 @@ public class Gun : MonoBehaviour
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
 
-            if (hit.rigidbody == null && enemy == null)
+            if (hit.rigidbody == null && enemy == null && !hit.collider.CompareTag("Player"))
             {
                 GameObject decal = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 decal.transform.SetParent(objHit);
@@ -124,6 +124,7 @@ public class Gun : MonoBehaviour
 
             if (hit.collider.CompareTag("Player"))
             {
+                Invoke("ResetShot", timeBetweenShooting);
                 return;
             }
         }

@@ -10,28 +10,57 @@ public class Residue : MonoBehaviour, ICollectable
     [SerializeField] TextMeshProUGUI collectUIText;
     [SerializeField] GameObject collectUI;
     [SerializeField] float spawnRadius = 20;
-    [SerializeField] GameObject enemyPf;
+    GameObject enemyPf;
     int spawnLimit = 0;
     Transform playerPosition;
     float playerDistance;
     float elapsedTime = 0.0f;
     float secondsBetweenSpawn = 7f;
+    int randomNumber, total;
+
+    [SerializeField] List<GameObject> dropPf;
+    int[] table = { 30, 40, 30, 40 };
 
 
     void Start()
     {
         playerPosition = FindPlayer.instance.player.transform;
+
+        foreach (var item in table)
+        {
+            total = total + item;
+        }
     }
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
+        //TODO verificar desempenho
         playerDistance = Vector3.Distance(playerPosition.position, transform.position);
         if (playerDistance < spawnRadius && elapsedTime > secondsBetweenSpawn && spawnLimit < 5)
         {
             elapsedTime = 0;
-            SpawnEnemy();
+            DropItem();
             spawnLimit++;
+        }
+    }
+
+    public void DropItem()
+    {
+        randomNumber = Random.Range(0, total);
+
+        for (int i = 0; i < table.Length; i++)
+        {
+            if (randomNumber <= table[i])
+            {
+                enemyPf = dropPf[i];
+                SpawnEnemy();
+                return;
+            }
+            else
+            {
+                randomNumber -= table[i];
+            }
         }
     }
 

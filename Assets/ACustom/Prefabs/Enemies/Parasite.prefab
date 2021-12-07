@@ -1080,8 +1080,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 200
-  damage: 20
-  lookRadius: 15
+  damage: 25
+  lookRadius: 20
   attackRange: 2
   anim: {fileID: 4904653122308753118}
   isOnGround:

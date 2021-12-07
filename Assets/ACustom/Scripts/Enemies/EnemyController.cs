@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour, IDamage
 
     //Patrol
     public Vector3 walkPoint;
-    bool walkPointSet;
+    bool walkPointSet, validRouteChase;
     public float walkPointRange;
 
     public float timeBetweenAttacks;
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour, IDamage
         anim.SetBool("isDead", false);
         isDead = false;
         //canAttack = true;
-       // canWalk = true;
+        // canWalk = true;
     }
 
     void Update()
@@ -44,12 +44,21 @@ public class EnemyController : MonoBehaviour, IDamage
         playerDistance = Vector3.Distance(target.position, transform.position);
         if (!isDead)
         {
-            if (playerDistance <= lookRadius)
+            //TODO verificar desempenho
+            VerifyChase();
+            if ((playerDistance <= lookRadius) && validRouteChase)
             {
                 AudioManager.PlaySound(AudioManager.Sound.EnemyBreath, GetPosition());
+
+                //pegar numero aleatorio e usar drop table pra continuar perseguindo ou fazer a animaçao idle
                 Move();
+
             }
-            else Patrol();
+            else
+            {
+                Patrol();
+            }
+                
             if (playerDistance <= attackRange)
             {
                 anim.SetBool("isAttacking", true);
@@ -94,18 +103,33 @@ public class EnemyController : MonoBehaviour, IDamage
         } 
     }
 
+    void VerifyChase()
+    {
+        NavMeshPath navMeshPathChase = new NavMeshPath();
+
+        if (agent.CalculatePath(target.position, navMeshPathChase) && navMeshPathChase.status == NavMeshPathStatus.PathComplete)
+        {
+            agent.SetPath(navMeshPathChase);
+            validRouteChase = true;
+        }
+        else
+        {
+            validRouteChase = false;
+        }  
+    }
+
     void Move()
     {
-    //    AudioManager audio = FindObjectOfType<AudioManager>();
         if (isDead)
+        {
             agent.SetDestination(transform.position);
+        }
 
         anim.SetBool("isWalking", true);
         agent.SetDestination(target.position);
 
         if (playerDistance <= agent.stoppingDistance)
         {
-        //    audio.Play("EnemyBreath");
             FaceTarget();
         }
     }
