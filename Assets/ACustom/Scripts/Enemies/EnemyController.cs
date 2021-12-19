@@ -49,7 +49,6 @@ public class EnemyController : MonoBehaviour, IDamage
             if ((playerDistance <= lookRadius) && validRouteChase)
             {
                 AudioManager.PlaySound(AudioManager.Sound.EnemyBreath, GetPosition());
-
                 //pegar numero aleatorio e usar drop table pra continuar perseguindo ou fazer a animaçao idle
                 Move();
 
@@ -76,9 +75,13 @@ public class EnemyController : MonoBehaviour, IDamage
     {
         anim.SetBool("isWalking", true);
         if (!walkPointSet) SearchWalkPoint();
+        
 
         if (walkPointSet)
+        {
+            AudioManager.PlaySound(AudioManager.Sound.EnemyBreath, GetPosition());
             agent.SetDestination(walkPoint);
+        }   
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         if (distanceToWalkPoint.magnitude < 3f)
@@ -125,7 +128,9 @@ public class EnemyController : MonoBehaviour, IDamage
             agent.SetDestination(transform.position);
         }
 
+        
         anim.SetBool("isWalking", true);
+
         agent.SetDestination(target.position);
 
         if (playerDistance <= agent.stoppingDistance)
