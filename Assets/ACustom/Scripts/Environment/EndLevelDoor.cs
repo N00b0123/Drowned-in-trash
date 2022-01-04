@@ -7,7 +7,7 @@ public class EndLevelDoor : MonoBehaviour
 {
     Animator animator;
     [SerializeField] Wallet wallet;
-    int residueRequire = 20;
+    int residueRequire = 500;
     int residue;
     [SerializeField] TextMeshProUGUI needResidueText;
     [SerializeField] GameObject ui;
