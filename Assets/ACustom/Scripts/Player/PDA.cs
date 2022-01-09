@@ -22,6 +22,12 @@ public class PDA : MonoBehaviour
     [SerializeField] GameObject diseases5;
     [SerializeField] GameObject diseases6;
 
+    [SerializeField] GameObject gamePDA;
+    [SerializeField] GameObject gameHome;
+    [SerializeField] GameObject objective;
+    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject collectableUI;
+    [SerializeField] GameObject life;
 
 
     void Update()
@@ -81,6 +87,7 @@ public class PDA : MonoBehaviour
 
     public void BackToHomePDA()
     {
+        CloseGamePDA();
         CloseRealSubmenu();
         homePDA.SetActive(true);
     }
@@ -142,9 +149,58 @@ public class PDA : MonoBehaviour
 
     #endregion
 
+    void CloseGamePDA()
+    {
+        gameHome.SetActive(false);
+        objective.SetActive(false);
+        enemy.SetActive(false);
+        collectableUI.SetActive(false);
+        life.SetActive(false);
+    }
+
+    public void OpenGameHome()
+    {
+        homePDA.SetActive(false);
+        gameHome.SetActive(true);
+    }
+
+    public void OpenObjective()
+    {
+        gameHome.SetActive(false);
+        objective.SetActive(true);
+    }
+    public void OpenEnemy()
+    {
+        gameHome.SetActive(false);
+        enemy.SetActive(true);
+    }
+
+    public void OpenCollectable()
+    {
+        gameHome.SetActive(false);
+        collectableUI.SetActive(true);
+        life.SetActive(false);
+    }
+
+    public void OpenLife()
+    {
+        collectableUI.SetActive(false);
+        life.SetActive(true);
+    }
+
+    public void BackToGameHome()
+    {
+        collectableUI.SetActive(false);
+        life.SetActive(false);
+        enemy.SetActive(false);
+        objective.SetActive(false);
+        gameHome.SetActive(true);
+    }
+
     void OpenPDA()
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0f;
         gameplayUI.SetActive(false);
         pdaUI.SetActive(true);
@@ -155,12 +211,12 @@ public class PDA : MonoBehaviour
     void ClosePDA()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1f;
         pdaUI.SetActive(false);
         CloseRealSubmenu();
         gameplayUI.SetActive(true);
         isOpenPDA = false;
     }
-
 
 }

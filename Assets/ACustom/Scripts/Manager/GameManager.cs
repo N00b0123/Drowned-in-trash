@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject gameplayUI;
     public GameObject gameOverUI;
+    public GameObject creditsUI;
+    public GameObject mainMenuUI;
 
     private void Awake()
     {
@@ -23,9 +25,13 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver && !PDA.isOpenPDA)
             {
                 if (isPaused)
+                {
                     Resume();
+                } 
                 else
+                {
                     Pause();
+                }   
             }
         }
     }
@@ -33,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
         gameplayUI.SetActive(false);
@@ -42,6 +49,7 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         pauseMenuUI.SetActive(false);
         gameplayUI.SetActive(true);
         Time.timeScale = 1f;
@@ -74,7 +82,14 @@ public class GameManager : MonoBehaviour
 
     public void Credits()
     {
-        Debug.Log("Fui eu quem fez");
+        mainMenuUI.SetActive(false);
+        creditsUI.SetActive(true);
+    }
+    
+    public void BackToMenuUI()
+    {
+        creditsUI.SetActive(false);
+        mainMenuUI.SetActive(true);
     }
 
     public void ReloadScene()
@@ -90,6 +105,7 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = true;
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             gameplayUI.SetActive(false);
             gameOverUI.SetActive(true);
             Invoke("DelayGameOver", 1.2f);
